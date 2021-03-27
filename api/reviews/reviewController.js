@@ -24,7 +24,6 @@ exports.getSearchReviews = async (req, res, next) => {
 exports.getPlatformReviews = async (req, res, next) => {
     try {
         const {platform}=req.params;
-        console.log(platform)
         const reviews = await queryAsync(`select * from game_review gr,game g,game_platform gp where gr.gameID=g.gameID and g.gameID=gp.gameID and gp.platform=?`,[platform]);
         
         res.json(reviews);
@@ -50,7 +49,7 @@ exports.createReview = async (req, res, next) => {
         
         const authorAndSup = insertData.slice(insertData.length - 2,
             insertData.length)
-        console.log(authorAndSup);
+       
         const review = await queryAsync(
             'insert into game_review (gameID, title,reviewerrating, content,authorID, date_updated, date_created) values (?,?,?,?,?,?,?)'
             , [...insertData,new Date(),new Date()]);
