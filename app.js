@@ -5,6 +5,7 @@ const app = express();
 const errorHandler = require('./middleware/errorHandlers');
 
 app.use(express.json());
+app.use('/', express.static(`${__dirname}/frontend`));
 app.use('/api', apiRoutes);
 
 app.get("*", (req, res) => {
