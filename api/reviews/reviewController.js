@@ -62,9 +62,9 @@ exports.createReview = async (req, res, next) => {
 
 exports.deleteAReview = async (req, res, next) => {
     try {
-      const { genrename } = req.params;
-      const deletedGenre = await queryAsync('delete from genre where genrename=? ', [
-          genrename,
+      const { reviewid } = req.params;
+      const deletedGenre = await queryAsync('delete from review where reviewID=? ', [
+          reviewid,
       ]);
       res.json(deletedGenre);
     } catch (err) {
