@@ -14,6 +14,6 @@ app.get("*", (req, res) => {
 
 app.use(errorHandler);
 
-app.listen(process.env.port || 8080, () => {
+app.listen(process.env.PORT || 8080, () => {
   console.log('App started in port 8080');
 });
