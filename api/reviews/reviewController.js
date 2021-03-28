@@ -53,7 +53,7 @@ exports.createReview = async (req, res, next) => {
         const review = await queryAsync(
             'insert into game_review (gameID, title,reviewerrating, content,authorID, date_updated, date_created) values (?,?,?,?,?,?,?)'
             , [...insertData,new Date(),new Date()]);
-        const supervise = await queryAsync('insert into supervise(authorX_employeeID,authorY_employeeID) values (?,?)',[...authorAndSup,review.insertId]);
+        const supervise = await queryAsync('insert into supervise(authorX_employeeID,authorY_employeeID,reviewID) values (?,?,?)',[...authorAndSup,review.insertId]);
         res.json({review,supervise});
     } catch (err) {
         next(err);
