@@ -36,27 +36,27 @@ exports.getAReview = async (req, res, next) => {
     try {
         const {reviewid} = req.params;
         const query=`SELECT 
-            gr.reviewID,
-            g.gameID,
-            gr.title,
-            gr.content,
-            gr.reviewerrating,
-            g.genre,
-            g.gamename,
-            g.numberOfPlayers,
-            g.budget,
-            g.cover,
-            g.gameStudio,
-            g.studioDirector,
-            g.minRequirements,
-            GROUP_CONCAT(p.platformName) as platforms
-        FROM
-            game_review gr,
-            game g,
-            platform p
-        WHERE
-            gr.gameID = g.gameID AND gr.reviewID = ?
-        GROUP BY gr.reviewID , g.gameID , gr.title , gr.content , gr.reviewerrating , g.genre , g.gamename , g.numberOfPlayers , g.budget , g.cover , g.gameStudio , g.studioDirector , g.minRequirements
+        gr.reviewID,
+        g.gameID,
+        gr.title,
+        gr.content,
+        gr.reviewerrating,
+        g.genre,
+        g.gamename,
+        g.numberOfPlayers,
+        g.budget,
+        g.cover,
+        g.gameStudio,
+        g.studioDirector,
+        g.minRequirements,
+        GROUP_CONCAT(gp.platform)
+    FROM
+        game_review gr,
+        game g,
+        game_platform gp
+    WHERE
+        gr.gameID = g.gameID AND g.gameID= gp.gameID AND gr.reviewID = ?
+    GROUP BY gr.reviewID , g.gameID , gr.title , gr.content , gr.reviewerrating , g.genre , g.gamename , g.numberOfPlayers , g.budget , g.cover , g.gameStudio , g.studioDirector , g.minRequirements
         `
         const review = await queryAsync(query, [reviewid]);
         res.json(review);
