@@ -49,7 +49,7 @@ exports.getAReview = async (req, res, next) => {
         g.gameStudio,
         g.studioDirector,
         g.minRequirements,
-        GROUP_CONCAT(gp.platform)
+        GROUP_CONCAT(gp.platform) as platforms
     FROM
         game_review gr,
         game g,
