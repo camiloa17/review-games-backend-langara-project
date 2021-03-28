@@ -10,6 +10,7 @@ exports.getGames = async (req, res, next) => {
     g.numberOfPLayers,
     g.budget,
     g.gameStudio,
+    g.studioDirector,
     g.cover,
     g.minRequirements,
     group_concat(gp.platform separator ', ') as platforms,
@@ -45,6 +46,7 @@ exports.getAGame = async (req, res, next) => {
     g.numberOfPLayers,
     g.budget,
     g.gameStudio,
+    g.studioDirector,
     g.cover,
     g.minRequirements,
     group_concat(gp.platform separator ', ') as platforms,
@@ -83,7 +85,7 @@ exports.createAGame = async (req, res, next) => {
     const date = insertData[insertData.length - 1];
 
     const insertGame = await queryAsync(
-      'insert into game(genre,gamename,numberOfPlayers,budget,gameStudio,cover,minRequirements) values(?,?,?,?,?,?,?)',
+      'insert into game(genre,gamename,numberOfPlayers,budget,gameStudio,studioDirector,cover,minRequirements) values(?,?,?,?,?,?,?,?)',
       insertData.slice(0, insertData.length - 2)
     );
     let values = [];
@@ -129,7 +131,7 @@ exports.updateAGame = async (req, res, next) => {
     )[0];
     
     const updateGame= await queryAsync(
-      'update game set genre=?,gamename=?,numberOfPlayers=?, budget=?,gameStudio=?,cover=?,minRequirements=? where gameID=?',
+      'update game set genre=?,gamename=?,numberOfPlayers=?, budget=?,gameStudio=?,studioDirector=?,cover=?,minRequirements=? where gameID=?',
       [...insertData.slice(0, insertData.length - 2), gameid]
     );
 

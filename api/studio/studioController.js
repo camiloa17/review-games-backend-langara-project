@@ -65,3 +65,29 @@ exports.updateAStudio = async (req, res, next) => {
     next(err);
   }
 };
+
+
+exports.getAllDirectors=async(req,res,next)=>{
+  try {
+    
+    const directors = await queryAsync('select * from studio_director');
+    res.json(directors);
+  } catch (err) {
+    next(err);
+  }
+}
+
+exports.addDirector = async(req,res,next)=>{
+  try {
+    const {studioname } = req.params;
+    const data = req.body;
+
+    const insertDirector = await queryAsync(
+      'insert studio_director(gameStudio,directorname) values(?,?)',
+      [studioname,data.directorname]
+    );
+    res.json(insertDirector);
+  } catch (err) {
+    next(err);
+  }
+}

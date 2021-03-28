@@ -12,7 +12,7 @@ CREATE TABLE game_studio(
 
 CREATE TABLE studio_director(
     gameStudio VARCHAR(50),
-    directorname VARCHAR(100),
+    directorname VARCHAR(100) unique,
     PRIMARY KEY(gamestudio, directorname),
     FOREIGN KEY(gamestudio) REFERENCES game_studio(studioname) ON DELETE CASCADE ON UPDATE CASCADE
 ); 
@@ -33,9 +33,11 @@ CREATE TABLE game(
     budget INT,
     cover TEXT,
     gameStudio VARCHAR(50),
+    studioDirector VARCHAR(100),
     minRequirements VARCHAR(50),
     FOREIGN KEY(gameStudio) REFERENCES game_studio(studioname) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY(genre) REFERENCES genre(genrename) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY(genre) REFERENCES genre(genrename) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(studioDirector) REFERENCES studio_director(directorname) ON DELETE CASCADE ON UPDATE CASCADE
 ); 
 
 CREATE TABLE game_review(
