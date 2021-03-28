@@ -24,16 +24,6 @@ CREATE TABLE employee(
     yearsofexperience INT
 ); 
 
-CREATE TABLE Supervise(
-    authorX_employeeID INT,
-    authorY_employeeID INT,
-    PRIMARY KEY(
-        authorX_employeeID,
-        authorY_employeeID
-    ),
-    FOREIGN KEY(authorX_employeeID) REFERENCES employee(employeeID),
-    FOREIGN KEY(authorY_employeeID) REFERENCES employee(employeeID)
-); 
 
 CREATE TABLE game(
     gameID INT PRIMARY KEY AUTO_INCREMENT,
@@ -59,6 +49,19 @@ CREATE TABLE game_review(
     date_created DATE,
     FOREIGN KEY(GameID) REFERENCES game(gameID) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(AuthorID) REFERENCES employee(employeeID) ON DELETE CASCADE ON UPDATE CASCADE
+); 
+
+CREATE TABLE Supervise(
+    authorX_employeeID INT,
+    authorY_employeeID INT,
+    reviewID INT,
+    PRIMARY KEY(
+        authorX_employeeID,
+        authorY_employeeID
+    ),
+    FOREIGN KEY(authorX_employeeID) REFERENCES employee(employeeID),
+    FOREIGN KEY(authorY_employeeID) REFERENCES employee(employeeID),
+    FOREIGN KEY(reviewID) REFERENCES game_review(reviewID)
 ); 
 
 CREATE TABLE game_platform(

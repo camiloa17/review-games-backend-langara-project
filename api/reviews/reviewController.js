@@ -53,7 +53,7 @@ exports.createReview = async (req, res, next) => {
         const review = await queryAsync(
             'insert into game_review (gameID, title,reviewerrating, content,authorID, date_updated, date_created) values (?,?,?,?,?,?,?)'
             , [...insertData,new Date(),new Date()]);
-        const supervise = await queryAsync('insert into supervise(authorX_employeeID,authorY_employeeID) values (?,?)',authorAndSup);
+        const supervise = await queryAsync('insert into supervise(authorX_employeeID,authorY_employeeID) values (?,?)',[...authorAndSup,review.insertId]);
         res.json({review,supervise});
     } catch (err) {
         next(err);
@@ -74,14 +74,14 @@ exports.deleteAReview = async (req, res, next) => {
   
   exports.updateAReview = async (req, res, next) => {
     try {
-      const { genrename } = req.params;
-      const data = req.body;
+    //   const { genrename } = req.params;
+    //   const data = req.body;
   
-      const insertGenre = await queryAsync(
-        'update genre set genrename=? where genrename=?',
-        [data.genrename, genrename]
-      );
-      res.json(insertGenre);
+    //   const insertGenre = await queryAsync(
+    //     'update genre set genrename=? where genrename=?',
+    //     [data.genrename, genrename]
+    //   );
+      res.json({message:'Not allowed :)'});
     } catch (err) {
       next(err);
     }
