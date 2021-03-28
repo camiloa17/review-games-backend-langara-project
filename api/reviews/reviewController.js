@@ -35,7 +35,30 @@ exports.getPlatformReviews = async (req, res, next) => {
 exports.getAReview = async (req, res, next) => {
     try {
         const {reviewid} = req.params;
-        const review = await queryAsync('select * from game_review gr,game g where gr.gameID=g.gameID and gr.reviewID=?', [reviewid]);
+        const query=`SELECT 
+            gr.reviewID,
+            g.gameID,
+            gr.title,
+            gr.content,
+            gr.reviewerrating,
+            g.genre,
+            g.gamename,
+            g.numberOfPlayers,
+            g.budget,
+            g.cover,
+            g.gameStudio,
+            g.studioDirector,
+            g.minRequirements,
+            GROUP_CONCAT(p.platformName) as platforms
+        FROM
+            game_review gr,
+            game g,
+            platform p
+        WHERE
+            gr.gameID = g.gameID AND gr.reviewID = ?
+        GROUP BY gr.reviewID , g.gameID , gr.title , gr.content , gr.reviewerrating , g.genre , g.gamename , g.numberOfPlayers , g.budget , g.cover , g.gameStudio , g.studioDirector , g.minRequirements
+        `
+        const review = await queryAsync(query, [reviewid]);
         res.json(review);
     } catch (err) {
         next(err);

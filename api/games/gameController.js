@@ -13,7 +13,7 @@ exports.getGames = async (req, res, next) => {
     g.studioDirector,
     g.cover,
     g.minRequirements,
-    group_concat(gp.platform separator ', ') as platforms,
+    group_concat(gp.platform) as platforms,
     gp.releaseDate 
     from game g,game_platform gp 
     where g.gameID=gp.gameID group by 
@@ -47,7 +47,7 @@ exports.getAGame = async (req, res, next) => {
     g.studioDirector,
     g.cover,
     g.minRequirements,
-    group_concat(gp.platform separator ', ') as platforms,
+    group_concat(gp.platform) as platforms,
     gp.releaseDate 
     from game g,game_platform gp 
     where  g.gameID=gp.gameID and g.gameID=?
