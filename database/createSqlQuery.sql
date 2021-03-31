@@ -59,7 +59,8 @@ CREATE TABLE Supervise(
     reviewID INT,
     PRIMARY KEY(
         authorX_employeeID,
-        authorY_employeeID
+        authorY_employeeID,
+        reviewID
     ),
     FOREIGN KEY(authorX_employeeID) REFERENCES employee(employeeID),
     FOREIGN KEY(authorY_employeeID) REFERENCES employee(employeeID),

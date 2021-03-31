@@ -77,6 +77,16 @@ exports.getAllDirectors=async(req,res,next)=>{
   }
 }
 
+exports.getAllDirectorsDirectingAGame=async(req,res,nex)=>{
+  try {
+    
+    const directors = await queryAsync('SELECT COUNT(DISTINCT studioDirector) as directors FROM game');
+    res.json(directors)
+  } catch (err) {
+    
+  }
+}
+
 exports.addDirector = async(req,res,next)=>{
   try {
     const {studioname } = req.params;
