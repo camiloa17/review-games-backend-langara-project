@@ -7,13 +7,15 @@ const {
   updateAStudio,
   addDirector,
   getAllDirectors,
-  getAllDirectorsDirectingAGame
+  getAllDirectorsDirectingAGame,
+  gameStudioMadeAGame
 } = require('./studioController');
 const routes = router();
 
 routes.get('/', getStudios);
 
 routes.post('/', createAStudio);
+routes.get('/madegames',gameStudioMadeAGame);
 routes.get('/directors', getAllDirectors);
 routes.get('/directors/directing',getAllDirectorsDirectingAGame)
 routes.get('/:studioname', getAStudio);

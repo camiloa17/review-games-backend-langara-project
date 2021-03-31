@@ -83,7 +83,7 @@ exports.getAllDirectorsDirectingAGame=async(req,res,nex)=>{
     const directors = await queryAsync('SELECT COUNT(DISTINCT studioDirector) as directors FROM game');
     res.json(directors)
   } catch (err) {
-    
+    next(err)
   }
 }
 
@@ -99,5 +99,15 @@ exports.addDirector = async(req,res,next)=>{
     res.json(insertDirector);
   } catch (err) {
     next(err);
+  }
+}
+
+exports.gameStudioMadeAGame = async(req,res,next)=>{
+  try {
+    
+    const games = await queryAsync('SELECT COUNT(DISTINCT gameStudio) as studios FROM game');
+    res.json(games);
+  } catch (err) {
+    next(err)
   }
 }
