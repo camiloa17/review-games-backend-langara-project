@@ -64,7 +64,7 @@ CREATE TABLE Supervise(
     ),
     FOREIGN KEY(authorX_employeeID) REFERENCES employee(employeeID),
     FOREIGN KEY(authorY_employeeID) REFERENCES employee(employeeID),
-    FOREIGN KEY(reviewID) REFERENCES game_review(reviewID)
+    FOREIGN KEY(reviewID) REFERENCES game_review(reviewID) ON DELETE CASCADE ON UPDATE CASCADE
 ); 
 
 CREATE TABLE game_platform(
